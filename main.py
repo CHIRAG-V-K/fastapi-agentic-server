@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from agent_1 import ai_agent_stream  # Assuming ai_agent_stream is defined in agent-1.py
+from agent_1 import ai_agent_stream, ai_agent_response  # Import both
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -30,4 +30,18 @@ async def health_check():
 async def ai_stream(request: Request):
     payload = await request.json()
     print("Received payload:", payload)  # Print the payload to the server console
-    return StreamingResponse(ai_agent_stream(), media_type="text/event-stream")
+
+    message = payload.get("message")
+    conversation_id = payload.get("conversation_id", "default")
+    stream = payload.get("stream", False)
+
+    if stream:
+        # Pass the message from the payload to the agent for streaming
+        return StreamingResponse(ai_agent_stream(message), media_type="text/event-stream")
+    else:
+        # If not streaming, get the full response and return as JSON
+        response_content = await ai_agent_response(message)
+        return {
+            "response": response_content,
+            "conversation_id": conversation_id
+        }
