@@ -2,11 +2,11 @@ import os
 import asyncio
 from huggingface_hub import InferenceClient
 from dotenv import load_dotenv  # Add this import
-
+from tools import agent_tools  # Import your tools
 load_dotenv()  # Load variables from .env
 
 client = InferenceClient(
-    provider="fireworks-ai",
+    provider="featherless-ai",
     api_key=os.getenv("HF_TOKEN"),  # Use os.getenv to avoid KeyError if not set
 )
 
@@ -15,7 +15,7 @@ async def ai_agent_stream(message="What is the capital of France?"):
     loop = asyncio.get_event_loop()
     def sync_stream():
         return client.chat.completions.create(
-            model="meta-llama/Llama-3.1-8B-Instruct",
+            model="nvidia/Llama3-ChatQA-1.5-70B",
             messages=[{"role": "user", "content": message}],
             stream=True,
         )
@@ -23,18 +23,16 @@ async def ai_agent_stream(message="What is the capital of France?"):
     for chunk in stream:
         content = chunk.choices[0].delta.content
         if content:
-            yield f"{content}\n"
-            await asyncio.sleep(0)  # Yield control to the event loop
-
-            
+            yield f"{content}"
 
 async def ai_agent_response(message="What is the capital of France?"):
     loop = asyncio.get_event_loop()
     def sync_response():
         return client.chat.completions.create(
-            model="meta-llama/Llama-3.1-8B-Instruct",
+            model="nvidia/Llama3-ChatQA-1.5-70B",
+            # model="meta-llama/Llama-3.1-8B-Instruct",
             messages=[{"role": "user", "content": message}],
             stream=False,
         )
     response = await loop.run_in_executor(None, sync_response)
-    return response.choices[0].message.content
+    return {"tools": [tool.name for tool in agent_tools], "result": response.choices[0].message.content}
