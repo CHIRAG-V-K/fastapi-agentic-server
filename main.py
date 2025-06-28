@@ -3,7 +3,8 @@ multiprocessing.set_start_method("spawn", force=True)  # Use spawn to avoid OSEr
 
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from transformerAgent import ai_agent_stream, ai_agent_response  # Import both
+# from transformerAgent import ai_agent_stream, ai_agent_response  # for AI agent using transformers
+from textGenerationAgent import ai_agent_stream, ai_agent_response  # FOR AI agent using text generation
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

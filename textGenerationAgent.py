@@ -5,8 +5,11 @@ from dotenv import load_dotenv  # Add this import
 from tools import agent_tools  # Import your tools
 load_dotenv()  # Load variables from .env
 
+finalModel = "meta-llama/Llama-3.1-8B-Instruct"  # Default model
+#  model="nvidia/Llama3-ChatQA-1.5-70B"
+
 client = InferenceClient(
-    provider="featherless-ai",
+    provider="fireworks-ai",
     api_key=os.getenv("HF_TOKEN"),  # Use os.getenv to avoid KeyError if not set
 )
 
@@ -15,7 +18,8 @@ async def ai_agent_stream(message="What is the capital of France?"):
     loop = asyncio.get_event_loop()
     def sync_stream():
         return client.chat.completions.create(
-            model="nvidia/Llama3-ChatQA-1.5-70B",
+           
+            model=finalModel,
             messages=[{"role": "user", "content": message}],
             stream=True,
         )
@@ -29,8 +33,7 @@ async def ai_agent_response(message="What is the capital of France?"):
     loop = asyncio.get_event_loop()
     def sync_response():
         return client.chat.completions.create(
-            model="nvidia/Llama3-ChatQA-1.5-70B",
-            # model="meta-llama/Llama-3.1-8B-Instruct",
+            model=finalModel,
             messages=[{"role": "user", "content": message}],
             stream=False,
         )
