@@ -33,8 +33,6 @@ async def health_check():
 @app.post("/chat")
 async def ai_stream(request: Request):
     payload = await request.json()
-    print("Received payload:", payload)  # Print the payload to the server console
-
     message = payload.get("message")
     conversation_id = payload.get("conversation_id", "default")
     stream = payload.get("stream", False)
