@@ -8,3 +8,5 @@ wikipedia
 duckduckgo-search
 python-dotenv
 pydantic
+transformers 
+torch

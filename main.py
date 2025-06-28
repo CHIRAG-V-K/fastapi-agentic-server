@@ -1,6 +1,9 @@
+import multiprocessing
+multiprocessing.set_start_method("spawn", force=True)  # Use spawn to avoid OSError on Windows
+
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from agent_1 import ai_agent_stream, ai_agent_response  # Import both
+from transformerAgent import ai_agent_stream, ai_agent_response  # Import both
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
