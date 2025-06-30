@@ -34,16 +34,11 @@ async def health_check():
 async def ai_stream(request: Request):
     payload = await request.json()
     message = payload.get("message")
-    conversation_id = payload.get("conversation_id", "default")
+    context = payload.get("context", [])
     stream = payload.get("stream", False)
 
     if stream:
-        # Pass the message from the payload to the agent for streaming
-        return StreamingResponse(ai_agent_stream(message), media_type="text/event-stream")
+        return StreamingResponse(ai_agent_stream(message, context), media_type="text/event-stream")
     else:
-        # If not streaming, get the full response and return as JSON
-        response_content = await ai_agent_response(message)
-        return {
-            "response": response_content,
-            "conversation_id": conversation_id
-        }
+        response_content = await ai_agent_response(message, context)
+        return response_content
