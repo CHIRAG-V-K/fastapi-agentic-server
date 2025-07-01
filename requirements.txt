@@ -10,3 +10,7 @@ python-dotenv
 pydantic
 transformers 
 torch
+pytesseract
+Pillow
+PyPDF2
+pandas
