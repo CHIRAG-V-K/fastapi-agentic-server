@@ -7,4 +7,3 @@ Pillow
 pytesseract
 PyPDF2
 pandas
-mangum
