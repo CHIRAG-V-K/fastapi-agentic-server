@@ -1,5 +1,11 @@
 .venv
+venv
 __pycache__
 *.pyc
 *.pyo  
 .env 
+node_modules
+package-lock.json
+package.json
+.serverless
+serverless

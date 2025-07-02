@@ -2,7 +2,7 @@ import os
 import asyncio
 from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
-from tools import agent_tools
+# from tools import agent_tools
 
 load_dotenv()
 
@@ -53,6 +53,6 @@ async def ai_agent_response(message="What is the capital of France?", context=No
         )
     response = await loop.run_in_executor(None, sync_response)
     return {
-        "tools": [tool.name for tool in agent_tools],
+        # "tools": [tool.name for tool in agent_tools],
         "result": response.choices[0].message.content
     }
