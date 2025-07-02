@@ -1,0 +1,7 @@
+wikipedia
+duckduckgo-search
+transformers 
+pydantic
+torch
+google-auth
+google-api-python-client
