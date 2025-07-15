@@ -27,6 +27,7 @@ pip install -r requirements.txt
 ```sh
 uvicorn main:app --reload
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+python ngrok.py
 ```
 
 The server will be available at [http://localhost:8000](http://localhost:8000).
