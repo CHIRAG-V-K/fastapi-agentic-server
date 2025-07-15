@@ -1,7 +1,7 @@
 import multiprocessing
 multiprocessing.set_start_method("spawn", force=True)  # Use spawn to avoid OSError on Windows
 
-from pyngrok import ngrok,conf
+from pyngrok import ngrok
 
 
 import logging
