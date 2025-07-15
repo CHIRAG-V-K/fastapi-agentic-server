@@ -7,3 +7,5 @@ Pillow
 pytesseract
 PyPDF2
 pandas
+pyngrok
+logging
