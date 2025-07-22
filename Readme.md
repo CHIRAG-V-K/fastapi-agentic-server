@@ -13,7 +13,7 @@ cd fastapi-agentic-server
 
 ```sh
 python -m venv venv
-.\venv\Scripts\activate
+.\.venv\Scripts\activate
 ```
 
 ### 3. Install dependencies
